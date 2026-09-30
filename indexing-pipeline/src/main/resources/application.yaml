@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: indexing-pipeline
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/graph_rag?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:Root@123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet.multipart:
+    max-file-size: 50MB
+    max-request-size: 50MB
+  sql.init:
+    mode: ${SQL_INIT_MODE:always}
+    encoding: UTF-8
+app:
+  code-revision: ${APP_CODE_REVISION:unknown}
+mybatis-plus:
+  configuration.map-underscore-to-camel-case: true
+  global-config.banner: false
+elasticsearch:
+  url: ${ELASTICSEARCH_URL:http://localhost:9200}
+  username: ${ELASTICSEARCH_USERNAME:}
+  password: ${ELASTICSEARCH_PASSWORD:}
+rag:
+  storage.upload-directory: ${RAG_UPLOAD_DIRECTORY:./data/uploads}
+  docling:
+    base-url: ${DOCLING_BASE_URL:http://192.168.2.19:5001}
+    auth-header-name: ${DOCLING_AUTH_HEADER_NAME:Authorization}
+    auth-header-value: ${DOCLING_AUTH_HEADER_VALUE:}
+    timeout: 600s
+    tokenizer: ${DOCLING_TOKENIZER:/models/qwen3-vl-embedding-2b-tokenizer}
+  chat:
+    base-url: ${OPENAI_BASE_URL:https://maas.qianwenaiapi.com/compatible-mode/v1}
+    api-key: ${OPENAI_API_KEY:}
+    model-name: ${OPENAI_CHAT_MODEL:qwen3.8-flash}
+    timeout: ${OPENAI_TIMEOUT:120s}
+    max-retries: ${OPENAI_MAX_RETRIES:0}
+    enable-thinking: ${OPENAI_ENABLE_THINKING:false}
+    max-completion-tokens: ${OPENAI_MAX_COMPLETION_TOKENS:4096}
+  embedding:
+    base-url: ${EMBEDDING_BASE_URL:${OPENAI_BASE_URL:https://maas.qianwenaiapi.com/compatible-mode/v1}}
+    api-key: ${EMBEDDING_API_KEY:${OPENAI_API_KEY:}}
+    model-name: ${EMBEDDING_MODEL:text-embedding-v4}
+    dimension: ${EMBEDDING_DIMENSION:1536}
+  jina:
+    api-key: ${JINA_API_KEY:}
+    model-name: ${JINA_MODEL:jina-reranker-v3.5}
+    timeout: 600s
+  chunking:
+    max-tokens: 800
+    overlap-tokens: 100
+  retrieval:
+    bm25-top-k: 20
+    vector-top-k: 20
+    graph-top-k: 20
+    rrf-k: 60
+    fused-top-k: 30
+    rerank-top-k: 10
+  graph:
+    max-depth: 2
+    max-nodes: 50
+    max-edges: 100
+    minimum-confidence: 0.35
+  context.max-tokens: 6000
+logging.level.com.example.indexing: INFO

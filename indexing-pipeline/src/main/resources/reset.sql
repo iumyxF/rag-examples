@@ -1,0 +1,8 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS rag_pipeline_step;
+DROP TABLE IF EXISTS kg_relation;
+DROP TABLE IF EXISTS kg_entity_mention;
+DROP TABLE IF EXISTS kg_entity;
+DROP TABLE IF EXISTS rag_document_version;
+DROP TABLE IF EXISTS rag_document;
+SET FOREIGN_KEY_CHECKS = 1;

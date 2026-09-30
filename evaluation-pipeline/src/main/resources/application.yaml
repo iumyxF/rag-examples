@@ -1,0 +1,20 @@
+server:
+  port: ${EVAL_SERVER_PORT:8081}
+spring:
+  application:
+    name: evaluation-pipeline
+  datasource:
+    url: ${EVAL_MYSQL_URL:jdbc:mysql://localhost:3306/evaluation_pipeline?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${EVAL_MYSQL_USERNAME:root}
+    password: ${EVAL_MYSQL_PASSWORD:Root@123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet.multipart:
+    max-file-size: 10MB
+    max-request-size: 10MB
+  sql.init:
+    mode: ${EVAL_SQL_INIT_MODE:always}
+    encoding: UTF-8
+evaluation:
+  target-timeout: ${EVAL_TARGET_TIMEOUT:120s}
+  code-revision: ${EVAL_CODE_REVISION:unknown}
+logging.level.com.example.evaluation: INFO

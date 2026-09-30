@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Graph RAG Lab</title>
+    <link rel="stylesheet" href="/styles.css"/>
+    <script type="module">
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+        mermaid.initialize({ startOnLoad: false, theme: "neutral" });
+        window.mermaid = mermaid;
+    </script>
+</head>
+<body>
+<header>
+    <h1>Graph RAG Lab</h1>
+    <p>Docling · Elasticsearch · MySQL Graph · RRF · Jina</p>
+</header>
+<main>
+    <section class="panel">
+        <h2>文档</h2>
+        <form id="upload">
+            <input
+                    id="file"
+                    type="file"
+                    accept=".pdf,.docx,.xlsx,.md,.markdown"
+                    required
+            />
+            <button>1. 上传并保存</button>
+        </form>
+        <p id="uploadStatus" class="status"></p>
+        <div id="documents"></div>
+        <dialog id="previewDialog">
+            <form method="dialog"><button class="close">关闭</button></form>
+            <h3 id="previewTitle">步骤产物</h3>
+            <pre id="previewContent"></pre>
+        </dialog>
+    </section>
+    <section class="panel">
+        <h2>提问</h2>
+        <textarea
+                id="question"
+                rows="3"
+                placeholder="例如：客户关系战略包括什么？"
+        ></textarea>
+        <button id="ask">执行 Graph RAG</button>
+        <p id="queryStatus" class="status"></p>
+        <article id="answer"></article>
+        <div id="citations"></div>
+    </section>
+    <section class="panel">
+        <h2>证据子图</h2>
+        <pre id="mermaidSource"></pre>
+        <div id="graph"></div>
+    </section>
+    <section class="panel">
+        <details>
+            <summary>RAG Trace</summary>
+            <pre id="trace"></pre>
+        </details>
+    </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>

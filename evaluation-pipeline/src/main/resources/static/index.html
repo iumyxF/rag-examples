@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RAG Evaluation Pipeline</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header>
+  <div><span class="eyebrow">RAG LAB</span><h1>Evaluation Pipeline</h1></div>
+  <div id="status" class="status">就绪</div>
+</header>
+<nav>
+  <button data-view="datasets" class="active">数据集</button>
+  <button data-view="runs">运行</button>
+  <button data-view="details">运行详情</button>
+  <button data-view="compare">对比</button>
+</nav>
+<main>
+  <section id="datasets" class="view active">
+    <div class="panel">
+      <h2>导入 JSONL</h2>
+      <form id="import-form" class="grid-form">
+        <label>数据集名称<input name="name" required></label>
+        <label>说明<input name="description"></label>
+        <label>JSONL 文件<input name="file" type="file" accept=".jsonl,application/x-ndjson" required></label>
+        <button type="submit">导入不可变 Revision</button>
+      </form>
+    </div>
+    <div class="panel"><h2>数据集</h2><div id="dataset-list"></div></div>
+  </section>
+
+  <section id="runs" class="view">
+    <div class="panel">
+      <h2>创建运行</h2>
+      <form id="run-form" class="grid-form">
+        <label>名称<input name="name" placeholder="baseline-structure-aware"></label>
+        <label>Revision<select name="revisionId" id="revision-select" required></select></label>
+        <label>被测服务地址<input name="targetBaseUrl" value="http://localhost:8080" required></label>
+        <label class="check"><input name="generateAnswer" type="checkbox"> 生成答案并评测引用</label>
+        <button type="submit">启动串行评测</button>
+      </form>
+    </div>
+    <div class="panel"><h2>运行记录</h2><div id="run-list"></div></div>
+  </section>
+
+  <section id="details" class="view">
+    <div class="panel toolbar"><label>Run<select id="detail-run"></select></label><button id="load-detail">刷新</button></div>
+    <div class="panel"><h2>汇总</h2><div id="run-summary"></div></div>
+    <div class="panel"><h2>单题结果</h2><div id="case-results"></div></div>
+  </section>
+
+  <section id="compare" class="view">
+    <div class="panel toolbar">
+      <label>Baseline<select id="baseline-run"></select></label>
+      <label>Candidate<select id="candidate-run"></select></label>
+      <button id="compare-button">对比</button>
+    </div>
+    <div class="panel"><h2>对比结果</h2><div id="comparison"></div></div>
+  </section>
+</main>
+<dialog id="json-dialog"><button class="close" onclick="this.closest('dialog').close()">关闭</button><pre id="json-content"></pre></dialog>
+<script src="/app.js"></script>
+</body>
+</html>
